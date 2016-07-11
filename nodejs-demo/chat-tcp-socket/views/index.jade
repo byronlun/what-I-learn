@@ -1,0 +1,26 @@
+doctype html
+
+html
+	head
+		meta(charset="utf-8")
+		title 聊天室
+		link(rel="stylesheet" href="css/index.css")
+		script(src="/socket.io/socket.io.js")
+		script(src="javascript/jquery.js")
+		script(src="javascript/index.js")
+	body
+		header
+			h1 聊天室
+		section
+			div.main
+				p#showUsername 请先从输入框输入你的用户名!!
+			div.sendComponent
+				form
+					input(type="text" id="sendMessage")
+					input(type='text' style="display:none")
+					button(type="button" id="send") Send
+			div.remindComponent
+		footer
+			p a small chat room
+			p made by byronlun
+		

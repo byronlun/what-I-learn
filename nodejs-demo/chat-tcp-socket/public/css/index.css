@@ -1,0 +1,56 @@
+* {
+	padding: 0px;
+	margin: ;
+}
+
+h1 {
+	text-align: center;
+}
+
+section {
+	width: 800px;
+	margin: 0px auto;
+	background-color: rgb(243, 237, 237);
+}
+
+.main {
+	height: 400px;
+	margin-bottom: 10px;
+	padding: 10px;
+	overflow: auto;
+	/*overflow-y: hidden;*/
+}
+
+.main p {
+	padding: 4px;
+}
+
+.sendComponent form {
+	padding: 3px;
+	background-color: black;
+}
+
+.sendComponent form input{
+	height: 25px;
+	line-height: 25px;
+	width: 80%;
+}
+
+.sendComponent button {
+	width: 19%;
+	height: 29px;
+	margin-left: 3px;
+	border: 0px;
+	background-color:rgb(130, 224, 255);
+}
+
+footer {
+	font-size: 0.8em;
+	width: 200px;
+	margin: 0px auto;
+	margin-top: 20px;
+}
+footer p {
+	text-align: center;
+	margin: 0px;
+}
