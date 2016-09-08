@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cross-domain</title>
+</head>
+<body>
+	<h1>test for jsonp</h1>
+	<h2>百度搜索</h2>
+	<input type="text" id="textInput">
+	<ul id="searchList"></ul>
+	<script>
+		var text = document.getElementById('textInput');
+		var searchList  = document.getElementById('searchList');
+		var addScript = null;
+		text.onkeyup = function() {
+			searchList.innerHTML = '';
+			if(addScript) {
+				document.body.removeChild(addScript);
+			}
+			addScript = document.createElement('script');
+			//wd是搜索关键字,cs是回调函数. 参考百度搜索的url(chrome-->network-->json过滤)
+			addScript.src = 'http://suggestion.baidu.com/su?wd='+text.value+'&p=3&cb=baidu&from=superpage';
+
+			//google搜索不是通过jsonp,而且url很多不明白的字段,用的是ajax去请求,添加一堆各种字段,所以个人觉得google吊就是这样,做了各种安全之类的措施
+			//addScript.src = 'https://www.google.com.hk/complete/search?client=serp&hl=en-HK&gs_rn=64&gs_ri=serp&tok=m3LB_gZZdz43pjwNDqkLsw&pq=fg&cp='+ text.value.length + '&gs_id=v&q=' + text.value + '&xhr=t'
+
+			//360搜索跟百度一样都是用jsonp
+			//addScript.src = 'https://sug.so.360.cn/suggest?callback=search360&encodein=utf-8&encodeout=utf-8&format=json&fields=word,obdata&word=' + text.value;
+
+			document.body.appendChild(addScript);
+		}
+		
+		function baidu(json) {
+			console.log(json);
+			var searchList = document.getElementById('searchList');
+			for(var i = 0; i < json.s.length; i++) {
+				var li = document.createElement('li');
+				li.innerHTML = json['s'][i];
+				searchList.appendChild(li);
+			}
+		}
+		
+		function search360(json) {
+			console.log(json);
+			var searchList = document.getElementById('searchList');
+			for(var i = 0; i < json.result.length; i++) {
+				var li = document.createElement('li');
+				li.innerHTML = json['result'][i].word;
+				searchList.appendChild(li);
+			}
+
+		}
+	</script>
+</body>
+</html>
