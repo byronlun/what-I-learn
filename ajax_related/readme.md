@@ -1,0 +1,1 @@
+some points about ajax
