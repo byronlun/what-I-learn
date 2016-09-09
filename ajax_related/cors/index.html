@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cors</title>
+</head>
+<body>
+	<p>hello cors</p>
+	<script>
+		console.log('test cors');
+		function after() {
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if(xhr.readystate === 4) {
+					if(xhr >= 200 && xhr.status <=304) {
+						console.log(xhr.responeText);
+						console.log('success');
+					} else {
+						console.log(xhr.status);
+					}
+				}
+			}
+			xhr.open('get', 'http://www.cnblogs.com/leejersey/p/5479012.html', true);
+			xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+			xhr.send(null);
+		}
+	setTimeout(after, 2000);
+	</script>
+</body>
+</html>

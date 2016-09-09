@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jsonp</title>
+</head>
+<body>
+	<p>jsonp test</p>
+	<script>
+		function handler(json) {
+			console.log(json);
+		}
+	</script>
+	<script src="http://localhost:3030/?callback=handler"></script>
+</body>
+</html>
