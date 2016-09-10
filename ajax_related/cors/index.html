@@ -20,11 +20,12 @@
 					}
 				}
 			}
-			xhr.open('get', 'http://www.cnblogs.com/leejersey/p/5479012.html', true);
-			xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+			xhr.open('get', 'http://127.0.0.1:3030', true);
+			//默认发送Origin就是本客户端的ip地址,不用设置,因为这是不允许的
+			//xhr.setRequestHeader('Origin', 'http://127.0.0.1:54615')
 			xhr.send(null);
 		}
-	setTimeout(after, 2000);
+		setTimeout(after, 2000);
 	</script>
 </body>
 </html>

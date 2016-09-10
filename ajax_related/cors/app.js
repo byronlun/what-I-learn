@@ -11,7 +11,7 @@ function onRequest (req, res) {
 	if(pathname === '/') {
 		res.writeHead(200, {
 			'Content-Type': 'text/html',
-			'Access-Control-Allow-Origin': '*'
+			'Access-Control-Allow-Origin': 'http://127.0.0.1:54615'
 		});
 		fs.readFile('index.html', 'utf8', (err, data) => {
 			if(err) {
