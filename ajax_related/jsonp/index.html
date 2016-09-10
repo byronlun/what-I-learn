@@ -8,7 +8,7 @@
 	<p>jsonp test</p>
 	<script>
 		function handler(json) {
-			console.log(json);
+			console.log(json.name + ' ' + json.purpose);
 		}
 	</script>
 	<script src="http://localhost:3030/?callback=handler"></script>
