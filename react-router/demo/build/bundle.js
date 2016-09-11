@@ -71,33 +71,159 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Home = function (_Component) {
-		_inherits(Home, _Component);
+	var Main = function (_Component) {
+	  _inherits(Main, _Component);
 
-		function Home() {
-			_classCallCheck(this, Home);
+	  function Main() {
+	    _classCallCheck(this, Main);
 
-			return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
-		}
+	    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+	  }
 
-		_createClass(Home, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'h1',
-					null,
-					'Welcome to the Home Page'
-				);
-			}
-		}]);
+	  _createClass(Main, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' },
+	            'Home'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/users' },
+	            'Users'
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/widgets' },
+	            'Widgets'
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-		return Home;
+	  return Main;
+	}(_react.Component);
+
+	var Home = function (_Component2) {
+	  _inherits(Home, _Component2);
+
+	  function Home() {
+	    _classCallCheck(this, Home);
+
+	    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+	  }
+
+	  _createClass(Home, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Welcome to the Home Page'
+	      );
+	    }
+	  }]);
+
+	  return Home;
+	}(_react.Component);
+
+	var Users = function (_Component3) {
+	  _inherits(Users, _Component3);
+
+	  function Users() {
+	    _classCallCheck(this, Users);
+
+	    return _possibleConstructorReturn(this, (Users.__proto__ || Object.getPrototypeOf(Users)).apply(this, arguments));
+	  }
+
+	  _createClass(Users, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'user'
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'user'
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'user'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Users;
+	}(_react.Component);
+
+	var Widgets = function (_Component4) {
+	  _inherits(Widgets, _Component4);
+
+	  function Widgets() {
+	    _classCallCheck(this, Widgets);
+
+	    return _possibleConstructorReturn(this, (Widgets.__proto__ || Object.getPrototypeOf(Widgets)).apply(this, arguments));
+	  }
+
+	  _createClass(Widgets, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'widget'
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'widget'
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'widget'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Widgets;
 	}(_react.Component);
 
 	(0, _reactDom.render)(_react2.default.createElement(
-		_reactRouter.Router,
-		{ history: _reactRouter.browserHistory },
-		_react2.default.createElement(_reactRouter.Route, { path: '/', component: Home })
+	  _reactRouter.Router,
+	  { history: _reactRouter.browserHistory },
+	  _react2.default.createElement(_reactRouter.Route, { path: '/', component: Main }),
+	  _react2.default.createElement(_reactRouter.IndexRoute, { component: Home }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/users', component: Users }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/widgets', component: Widgets })
 	), document.getElementById('root'));
 
 /***/ },
