@@ -3,7 +3,6 @@ var path = require('path');
 
 module.exports = {
 	entry: [
-    
     "./index.js"
   ],
   output: {
@@ -21,5 +20,11 @@ module.exports = {
       },
       exclude: /node_modules/
     }]
-  }
+  },
+
+  // plugins: process.env.NODE_ENV === 'production' ? [
+  //   new webpack.optimize.DedupePlugin(),
+  //   new webpack.optimize.OccurrenceOrderPlugin(),
+  //   new webpack.optimize.UglifyJsPlugin()
+  // ] : [],
 }

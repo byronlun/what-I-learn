@@ -9,9 +9,9 @@ class MainLayout extends Component{
       <div className="app">
         <aside className="primary-aside">
           <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/users">Users</Link></li>
-            <li><Link to="/inputsave">InputSave</Link></li>
+            <li><IndexLink to="/" activeStyle={{ color: 'green' }}>Home</IndexLink></li>
+            <li><Link to="/users" activeStyle={{ color: 'red' }}>Users</Link></li>
+            <li><Link to="/inputsave" activeStyle={{ color: 'red' }}>InputSave</Link></li>
           </ul>
         </aside>
         <main>
