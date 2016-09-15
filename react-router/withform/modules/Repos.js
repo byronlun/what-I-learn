@@ -4,13 +4,18 @@ import { browserHistory } from 'react-router'
 
 export default React.createClass({
 
+  contextTypes: {
+    router: React.PropTypes.object
+  },
+
   handleSumbit(event) {
     event.preventDefault()
     const userName = event.target.elements[0].value
     const repo = event.target.elements[1].value
     const path = `/repos/${userName}/${repo}`
     console.log(path)
-    browserHistory.push(path)
+    this.context.router.push(path)
+    // browserHistory.push(path)
   },
 
   render() {
