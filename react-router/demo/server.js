@@ -4,7 +4,7 @@ var compression = require('compression');
 
 var app = express();
 // must be first!
-app.use(compression());
+// app.use(compression());
 
 //设置静态文件目录
 app.use(express.static(__dirname));
