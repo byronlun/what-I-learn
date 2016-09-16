@@ -51,7 +51,7 @@ function renderPage(appHtml) {
     <meta charset=utf-8/>
     <title>My First React Router App</title>
     <div id=app>${appHtml}</div>
-    <script src="/build/bundle.js"></script>
+    <script src="./build/bundle.js"></script>
    `
 }
 
