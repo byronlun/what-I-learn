@@ -21,6 +21,6 @@
 <style>
   .key {
     clear: both;
-    margin-top: 40px;
+    margin-top: 20px;
   }
 </style>

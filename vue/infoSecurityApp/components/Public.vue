@@ -18,6 +18,9 @@
 </template>
 
 <style>
+  #public {
+    overflow: hidden;
+  }
   .container {
     float: left;
     width: 100%;
