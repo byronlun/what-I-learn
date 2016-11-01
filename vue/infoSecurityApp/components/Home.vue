@@ -1,5 +1,7 @@
-<style>
-  .tab {
-    list-style: none;
-  }
-</style>
+<template>
+  <div class="home">
+    <p>home</p>
+  </div>
+
+</template> 
+
