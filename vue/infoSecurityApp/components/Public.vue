@@ -8,14 +8,30 @@
     </div>
     <div class="leftText">
       <h3>原文</h3>
-      <textarea name="originText" id="originText" cols="30" rows="10" placeholder="请输入原文"></textarea>
+      <textarea v-model="originText" id="originText" cols="30" rows="10" placeholder="请输入原文"></textarea>
     </div>
     <div class="rightText">
       <h3>密文</h3>
-      <textarea name="cipher" id="cipher" cols="30" rows="10" placeholder="请输入密文"></textarea>
+      <textarea v-model="cipher" id="cipher" cols="30" rows="10" placeholder="请输入密文"></textarea>
     </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        originText: '',
+        cipher: ''
+      }
+    },
+    computed: {
+      originTextChange
+    }
+  }
+</script>
+
+
 
 <style>
   #public {
