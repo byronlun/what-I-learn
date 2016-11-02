@@ -26,7 +26,7 @@
       }
     },
     computed: {
-      originTextChange
+      
     }
   }
 </script>
