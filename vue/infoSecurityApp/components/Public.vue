@@ -2,8 +2,8 @@
   <div id="public">
     <div class="container">
       <div class="centerButton">
-        <button>加密</button>
-        <button>解密</button>
+        <button v-on:click="encryption">加密</button>
+        <button v-on:click="decryption">解密</button>
       </div>
     </div>
     <div class="leftText">
@@ -22,11 +22,43 @@
     data() {
       return {
         originText: '',
-        cipher: ''
+        cipher: '',
+        key: this.keyNum
       }
     },
-    computed: {
-      
+    props: ['keyNum'],
+    watch: {
+      keyNum: function(val) {
+        this.key = val
+        console.log(val)
+      }
+    },
+    methods: {
+      encryption() {
+        let key = this.key
+        let word = this.originText
+        let result = word.toLocaleUpperCase().split('').map(function(char) {
+          var temp = char.charCodeAt() + parseInt(key)
+          if (temp > 90) {
+            temp = temp - 26
+          }
+          return String.fromCodePoint(temp)
+        })
+        this.cipher = result.join('')
+      },
+
+      decryption() {
+        let key = this.key
+        let word = this.cipher
+        let result = word.toLocaleLowerCase().split('').map(function(char) {
+          var temp = char.charCodeAt() - parseInt(key)
+          if (temp < 97) {
+            temp = temp + 26
+          }
+          return String.fromCodePoint(temp)
+        })
+        this.originText = result.join('')
+      }
     }
   }
 </script>
@@ -69,6 +101,10 @@
     float: left;
     margin-left: -406px;
     width: 400px;
+  }
+  .leftText textarea, .rightText textarea {
+    width: 400px;
+    font-size: 1.2em;
   }
   h3 {
     text-align: center;
