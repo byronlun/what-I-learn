@@ -1,9 +1,9 @@
 <template>
   <div id="caesar">
-    <public :key-num="keyNum"></public>
+    <public :key-input="keyNum"></public>
     <div class="keyNum">
       <label>请输入密钥K（1 &lt;= K &lt;= 25）:</label>
-      <input type="text" v-model="keyNum" v-on:input="checkNum" placeholder="3">
+      <input type="text" v-model="keyNum" v-on:blur="checkNum" placeholder="3">
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
       }
     },
     methods: {
-      checkNum() {
+      checkNum() {          
         if(this.keyNum <= 1 || this.keyNum >= 25) {
           this.keyNum = 3
           alert('密钥输入格式不正确')

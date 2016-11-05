@@ -23,18 +23,40 @@
       return {
         originText: '',
         cipher: '',
-        key: this.keyNum
+        key: this.keyInput
       }
     },
-    props: ['keyNum'],
+    props: ['keyInput'],
+    created: function() {
+      console.log(this.key)
+    },
     watch: {
-      keyNum: function(val) {
+      keyInput: function(val) {
         this.key = val
         console.log(val)
       }
     },
     methods: {
       encryption() {
+        //分三种加密算法处理
+        if(/^\d{1,2}$/.test(this.key)) {
+          console.log(this.key)
+          this.caesarEncryption()
+        } else {
+          this.playfairEncryption()
+        }
+        
+      },
+
+      decryption() {
+        if(/^\d{1,2}$/.test(this.key)) {
+          this.caesarDecryption()
+        } else {
+          this.playfairDecryption()
+        }
+      },
+      //Caesar加密
+      caesarEncryption() {
         let key = this.key
         let word = this.originText
         let result = word.toLocaleUpperCase().split('').map(function(char) {
@@ -46,8 +68,8 @@
         })
         this.cipher = result.join('')
       },
-
-      decryption() {
+      //Caesar解密
+      caesarDecryption() {
         let key = this.key
         let word = this.cipher
         let result = word.toLocaleLowerCase().split('').map(function(char) {
@@ -58,6 +80,14 @@
           return String.fromCodePoint(temp)
         })
         this.originText = result.join('')
+      },
+      //Playfair加密
+      playfairEncryption() {
+        // const key = this.key
+      },
+      //Playfair解密
+      playfairDecryption() {
+
       }
     }
   }
