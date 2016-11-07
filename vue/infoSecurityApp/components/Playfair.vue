@@ -22,9 +22,8 @@
     },
     methods: {
       checkWord() {
+        this.keyword.replace(/j/gi, 'i')
         console.log(this.keyword)
-        const newWordASCII = this.keyword
-        
       }
     }
   }
