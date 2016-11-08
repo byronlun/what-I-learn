@@ -18,41 +18,54 @@
 </template>
 
 <script>
+  import math from 'mathjs'
+
   export default {
     data() {
       return {
         originText: '',
         cipher: '',
-        key: this.keyInput
+        key: this.keyNum ? this.keyNum : this.keyWord
       }
     },
-    props: ['keyInput'],
-    created: function() {
-      console.log(this.key)
-    },
+    props: ['keyNum', 'keyWord', 'hillKeyMatrix'],
+    // created: function() {
+    //   console.log(this.key)
+    //   console.log(this.hillKeyMatrix)
+    // },
     watch: {
       keyInput: function(val) {
         this.key = val
+      },
+      keyWord: function(val) {
+        this.key = val
+      },
+      hillKeyMatrix: function(val) {
+        this.hillKeyMatrix = val
         console.log(val)
       }
     },
     methods: {
       encryption() {
         //分三种加密算法处理
-        if(/^\d{1,2}$/.test(this.key)) {
-          console.log(this.key)
+        if(this.keyNum) {
           this.caesarEncryption()
-        } else {
+        } else if(this.keyWord) {
           this.playfairEncryption()
+        } else if(this.hillKeyMatrix){
+          console.log(this.hillKeyMatrix)
+          this.hillEncryption()
         }
         
       },
 
       decryption() {
-        if(/^\d{1,2}$/.test(this.key)) {
+        if(this.keyNum) {
           this.caesarDecryption()
-        } else {
+        } else if(this.keyWord) {
           this.playfairDecryption()
+        } else if(this.hillKeyMatrix){
+          this.hillEncryption()
         }
       },
       //Caesar加密
@@ -81,8 +94,8 @@
         })
         this.originText = result.join('')
       },
-      //Playfair加密
-      playfairEncryption() {
+      //Playfair生成密钥矩阵
+      createKeyMatrix() {
         const key = this.key
         const keyArray = key.toLocaleUpperCase().split('')
         var i = 0,
@@ -114,7 +127,11 @@
           }
         }
         console.log(keyMatrix)
-
+        return keyMatrix
+      },
+      //Playfair加密
+      playfairEncryption() {
+        let keyMatrix = this.createKeyMatrix()
         //将输入原文过滤之后装进两两装进数组中，最后如果为单数则补'K'
         var inputText = this.originText.replace(/[^a-z]/ig, '').toLocaleUpperCase().split(''),
             inputArray = []
@@ -169,8 +186,9 @@
       },
       //Playfair解密
       playfairDecryption() {
+        let keyMatrix = this.createKeyMatrix()
         //将输入原文过滤之后装进两两装进数组中，最后如果为单数则补'K'
-        var inputText = this.originText.replace(/[^a-z]/ig, '').toLocaleUpperCase().split(''),
+        var inputText = this.cipher.replace(/[^a-z]/ig, '').toLocaleUpperCase().split(''),
             inputArray = []
         i = 0
         inputArray[i] = []
@@ -205,9 +223,13 @@
           //判断三种情况
           resultArray[i] = []
           if (x1 === x2) {
-            resultArray[i].push(keyMatrix[x1][(y1+1)%5], keyMatrix[x2][(y2+1)%5])
+            y1 = y1 === 0 ? 5 : y1
+            y2 = y2 === 0 ? 5 : y2
+            resultArray[i].push(keyMatrix[x1][(y1-1)], keyMatrix[x2][(y2-1)])
           } else if (y1 === y2) {
-            resultArray[i].push(keyMatrix[(x1+1)%5][y1], keyMatrix[(x2+1)%5][y2])
+            x1 = x1 === 0 ? 5 : x1
+            x2 = x2 === 0 ? 5 : x2
+            resultArray[i].push(keyMatrix[(x1-1)][y1], keyMatrix[(x2-1)][y2])
           } else {
             resultArray[i].push(keyMatrix[x1][y2], keyMatrix[x2][y1])
           }
@@ -218,8 +240,82 @@
         resultArray.forEach(function(array) {
           resultText.push(array[0], array[1])
         })
-        this.cipher = resultText.join('')
+        this.originText = resultText.join('')
         console.log(resultText)
+      },
+      //hill分割成长度为3的字符串数组
+      hillSplit(inputText) {
+        var inputArray = []
+        while(inputText.length) {
+          inputArray.push(inputText.slice(0,3))
+          inputText = inputText.slice(3)
+        }
+        while(inputArray[inputArray.length-1].length<3) {
+          inputArray[inputArray.length-1] += 'K'
+        }
+        console.log(inputArray)
+        return inputArray
+      },
+      //加密长度为3的单位字符串数组
+      singleHillEncryption(singleArray) {
+        let hillKeyMatrix = this.hillKeyMatrix,
+            resultArray = []
+        for(let i = 0; i < 3; i++) {
+          let temp = []
+          for (let j = 0; j < 3; j++) {
+            temp[j] = hillKeyMatrix[i][j] * singleArray[j]
+          }
+          resultArray[i] = (temp[0] + temp[1] + temp[2])%26
+        }
+        console.log(resultArray)
+        return resultArray
+      },
+      //矩阵求逆
+      inverseMatrix(matrix) {
+        var inverseMatrix
+        for (let i = 0; i < 3; i++) {
+          for (let j = 0; j < 3; j++) {
+            
+          }
+        }
+      },
+      //Hill加密
+      hillEncryption() {
+        var inputText = this.originText.replace(/[^a-z]/ig, '').toLocaleUpperCase(),
+            inputArray = this.hillSplit(inputText),
+            resultArray = []
+        for (let i = 0; i < inputArray.length; i++) {
+          let singleArray = inputArray[i].split('')
+          for(let j = 0; j < singleArray.length; j++) {
+            singleArray[j] = singleArray[j].charCodeAt() - 65
+          }
+          let resultSingleArray = this.singleHillEncryption(singleArray)
+          for(let j = 0; j < resultSingleArray.length; j++) {
+            resultSingleArray[j] = String.fromCodePoint(resultSingleArray[j] + 65)
+          }
+          console.log(resultSingleArray)
+          resultArray.push(resultSingleArray.join(''))
+        }
+        this.cipher = resultArray.join('')
+      },
+      //Hill解密
+      hillDecryption() {
+        var inputText = this.cipher.replace(/[^a-z]/ig, '').toLocaleUpperCase(),
+            inputArray = this.hillSplit(inputText),
+            resultArray = []
+        for (let i = 0; i < inputArray.length; i++) {
+          let singleArray = inputArray[i].split('')
+          for(let j = 0; j < singleArray.length; j++) {
+            singleArray[j] = singleArray[j].charCodeAt() - 65
+          }
+          let resultSingleArray = this.singleHillEncryption(singleArray)
+          for(let j = 0; j < resultSingleArray.length; j++) {
+            resultSingleArray[j] = String.fromCodePoint(resultSingleArray[j] + 65)
+          }
+          console.log(resultSingleArray)
+          resultArray.push(resultSingleArray.join(''))
+        }
+        this.cipher = resultArray.join('')
       }
     }
   }

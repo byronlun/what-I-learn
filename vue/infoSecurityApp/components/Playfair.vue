@@ -1,6 +1,6 @@
 <template>
   <div id="playfair">
-    <public :key-input="keyword"></public>
+    <public :key-word="keyword"></public>
     <div class="keyword">
       <label>请输入关键词:</label>
       <input type="text" v-model="keyword" v-on:blur="checkWord" placeholder="monarchy">
@@ -22,8 +22,8 @@
     },
     methods: {
       checkWord() {
-        this.keyword.replace(/j/gi, 'i')
         console.log(this.keyword)
+        this.keyword.replace(/j\gi/, 'i')
       }
     }
   }
@@ -31,7 +31,7 @@
 
 <style>
   .keyword {
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .keyword input {
     margin-left: 10px;

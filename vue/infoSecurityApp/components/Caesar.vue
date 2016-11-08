@@ -1,6 +1,6 @@
 <template>
   <div id="caesar">
-    <public :key-input="keyNum"></public>
+    <public :key-num="keyNum"></public>
     <div class="keyNum">
       <label>请输入密钥K（1 &lt;= K &lt;= 25）:</label>
       <input type="text" v-model="keyNum" v-on:blur="checkNum" placeholder="3">
@@ -33,7 +33,7 @@
 
 <style>
   .keyNum {
-    margin-top: 20px;
+    margin-top: 30px;
   }
   .keyNum input {
     margin-left: 10px;
