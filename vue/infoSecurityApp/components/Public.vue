@@ -65,7 +65,7 @@
         } else if(this.keyWord) {
           this.playfairDecryption()
         } else if(this.hillKeyMatrix){
-          this.hillEncryption()
+          this.hillDecryption()
         }
       },
       //Caesar加密
@@ -257,13 +257,12 @@
         return inputArray
       },
       //加密长度为3的单位字符串数组
-      singleHillEncryption(singleArray) {
-        let hillKeyMatrix = this.hillKeyMatrix,
-            resultArray = []
+      singleHillEncryption(singleArray, matrix) {
+        var resultArray = []
         for(let i = 0; i < 3; i++) {
           let temp = []
           for (let j = 0; j < 3; j++) {
-            temp[j] = hillKeyMatrix[i][j] * singleArray[j]
+            temp[j] = matrix[i][j] * singleArray[j]
           }
           resultArray[i] = (temp[0] + temp[1] + temp[2])%26
         }
@@ -272,12 +271,13 @@
       },
       //矩阵求逆
       inverseMatrix(matrix) {
-        var inverseMatrix
-        for (let i = 0; i < 3; i++) {
-          for (let j = 0; j < 3; j++) {
+        // var inverseMatrix
+        // for (let i = 0; i < 3; i++) {
+        //   for (let j = 0; j < 3; j++) {
             
-          }
-        }
+        //   }
+        // }
+        return math.inv(matrix)
       },
       //Hill加密
       hillEncryption() {
@@ -289,7 +289,7 @@
           for(let j = 0; j < singleArray.length; j++) {
             singleArray[j] = singleArray[j].charCodeAt() - 65
           }
-          let resultSingleArray = this.singleHillEncryption(singleArray)
+          let resultSingleArray = this.singleHillEncryption(singleArray, this.hillKeyMatrix)
           for(let j = 0; j < resultSingleArray.length; j++) {
             resultSingleArray[j] = String.fromCodePoint(resultSingleArray[j] + 65)
           }
@@ -308,14 +308,16 @@
           for(let j = 0; j < singleArray.length; j++) {
             singleArray[j] = singleArray[j].charCodeAt() - 65
           }
-          let resultSingleArray = this.singleHillEncryption(singleArray)
+          let invMatrix = math.inv(this.hillKeyMatrix)
+          console.log(invMatrix)
+          let resultSingleArray = this.singleHillEncryption(singleArray, invMatrix)
           for(let j = 0; j < resultSingleArray.length; j++) {
-            resultSingleArray[j] = String.fromCodePoint(resultSingleArray[j] + 65)
+            resultSingleArray[j] = String.fromCodePoint(Math.round(resultSingleArray[j] + 65))
           }
           console.log(resultSingleArray)
           resultArray.push(resultSingleArray.join(''))
         }
-        this.cipher = resultArray.join('')
+        this.originText = resultArray.join('')
       }
     }
   }

@@ -5,6 +5,7 @@
       <li><router-link to="/caesar">Caesar 算法演示</router-link></li>
       <li><router-link to="/playfair">Playfair 算法演示</router-link></li>
       <li><router-link to="/hill">Hill 算法演示</router-link></li>
+      <li><router-link to="/rsa">Rsa 算法演示</router-link></li>
     </ul>
     <router-view class="view"></router-view>
   </div>
@@ -15,13 +16,15 @@
   import Caesar from './Caesar.vue'
   import Playfair from './Playfair.vue'
   import Hill from './Hill.vue'
+  import Rsa from './Rsa.vue'
 
   export default {
     components: {
       Home,
       Caesar,
       Playfair,
-      Hill
+      Hill,
+      Rsa
     },
     data() {
       return {
