@@ -6,7 +6,7 @@ module.exports = {
 
   output: {
     path: './dist',
-    publicPath: 'dist/',
+    publicPath: 'dist',
     filename: 'build.js'
   },
 
