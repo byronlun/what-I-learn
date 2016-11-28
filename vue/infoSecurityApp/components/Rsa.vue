@@ -1,22 +1,29 @@
 <template>
   <div id="rsa">
-    <button v-on:click="getRandomPrime">产生随机数</button>  
-    <input type="text" placeholder="101" v-model="primeKey[0]">
-    <input type="text" placeholder="103" v-model="primeKey[1]"><br>
+    <button v-on:click="getRandomPrime" class="btn">产生随机数</button>  
+    <input type="text" readonly="readonly" placeholder="101" v-model="primeKey[0]">
+    <input type="text" readonly="readonly" placeholder="103" v-model="primeKey[1]"><br>
 
-    <label>输入加密密钥e(数字)</label>
-    <input type="text" placeholder="3533" v-model="encryptKey"><br>
+    <button v-on:click="getEncryptKey" class="btn">获取常见加密密钥e</button> 
+    <input type="text" readonly="readonly" placeholder="3533" v-model="encryptKey">
+    <label>则解密密钥d为</label>
+    <input type="text" readonly="readonly" v-model="decryptKey"><br>
+
+    <label>公钥为</label>
+    <input type="text" readonly="readonly" v-model="publicKey" class="key">
+    <label>私钥为</label>
+    <input type="text" readonly="readonly" v-model="privateKey" class="key"><br>
 
     <label>输入加密信息(数字)</label>
     <input type="text" placeholder="9726" v-model="encryptText">
-    <button v-on:click="EncryptBtn">加密</button><br>
-    <label>密文信息</label>
+    <button v-on:click="EncryptBtn" class="EnAndDecryptBtn">加密</button>
+    <label>密文信息为</label>
     <input type="text" v-model="cipher"><br>
 
     <label>输入解密信息(数字)</label>
     <input type="text" placeholder="5761" v-model="decryptText">
-    <button v-on:click="DecryptBtn">解密</button><br>
-    <label>原文信息</label>
+    <button v-on:click="DecryptBtn" class="EnAndDecryptBtn">解密</button>
+    <label>原文信息为</label>
     <input type="text" v-model="originText">
   </div>
 </template>
@@ -24,12 +31,15 @@
   export default {
     data() {
       return {
-        cipher: null,
-        originText: null,
+        cipher: null,           //密文信息
+        originText: null,       //原文信息
+        encryptText: null,      //加密信息
+        decryptText: null,      //解密信息
+
         primeArray: [],
-        primeKey: [101, 103],
-        encryptKey: 3533,
-        decryptKey: 6597,
+        primeKey: [101, 113],
+        encryptKey: 3533,       //加密密钥e
+        decryptKey: 6597,       //解密密钥e
         publicKey: [3533, 11413],
         privateKey: [6597, 11413]
       }
@@ -38,9 +48,19 @@
       this.primeArray = this.createPrime()
     },
     watch: {
+      primeKey: function() {
+        let n = this.primeKey[0] * this.primeKey[1]
+        let faiN = (this.primeKey[0]-1)*(this.primeKey[1]-1)
+        this.decryptKey = this.getTMnum(this.encryptKey, faiN)
+        this.publicKey = [this.encryptKey, n]
+        this.privateKey = [this.decryptKey, n]
+      },
       encryptKey: function(val) {
-        faiN = (this.primeKey[0]-1)*(this.primeKey[1]-1)
-        this.decryptKey = this.getTMnum()
+        let n = this.primeKey[0] * this.primeKey[1]
+        let faiN = (this.primeKey[0]-1)*(this.primeKey[1]-1)
+        this.decryptKey = this.getTMnum(this.encryptKey, faiN)
+        this.publicKey = [this.encryptKey, n]
+        this.privateKey = [this.decryptKey, n]
       }
     },
     methods: {
@@ -70,11 +90,17 @@
           out.push(primeArray.splice(temp,1)[0])
         }
         this.primeKey = out
-        this.publicKey = []
+        console.log(this.primeKey)
         return out
       },
+      //获取随机加密密钥e
+      getEncryptKey() {
+        let encryptKeyArray = [3, 17, 65537]
+        this.encryptKey = encryptKeyArray[Math.floor(Math.random()*3)]
+        console.log(this.encryptKey)
+      },
       //求模反元素
-      getTMnum() {
+      getTMnum(e, sum) {
         let result = 1
         while(!(result%e == 0 && (result-1)%sum == 0)) {
           result += sum
@@ -95,11 +121,11 @@
       },
       EncryptBtn() {
         let text = this.encryptText
-        let cipher = EnAndDecryption(text, this.publicKey)
+        this.cipher = this.EnAndDecryption(text, this.publicKey)
       },
       DecryptBtn() {
         let text = this.decryptText
-        let originText = EnAndDecryption(text, this.privateKey)
+        this.originText = this.EnAndDecryption(text, this.privateKey)
       }
     }
   }
@@ -107,12 +133,25 @@
 
 <style>
   input {
-    width: 80px;
+    width: 100px;
+    text-align: center;
     border-style: none;
     border-bottom: thin white solid;
     background: transparent;
     outline: none;
     color: green;
     font-size: 1.1em;
+
+    margin-bottom: 20px;
+  }
+  .key {
+    width: 190px;
+  }
+  .btn {
+    width: 140px;
+  }
+  .EnAndDecryptBtn {
+    width: 80px;
+    margin-right: 40px;
   }
 </style>
