@@ -3,8 +3,25 @@
     <public v-bind:hill-key-matrix="hillKeyMatrix"></public>
     <div class="keyMatrix">
       <label>点击按钮产生随机密钥矩阵</label>
-      <button v-on:click="createKeyMatrix">生成密钥</button>
-      <table>
+      <button v-on:click="createKeyMatrix">生成密钥</button><br>
+      <table class="hillKeyMatrix">
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <table class="hillInverseMatrix">
         <tr>
           <td></td>
           <td></td>
@@ -35,7 +52,8 @@
     },
     data(){
       return {
-        hillKeyMatrix:[[17,17,5],[21,18,21],[2,2,19]]
+        hillKeyMatrix: [[17,17,5],[21,18,21],[2,2,19]],
+        hillInverseMatrix: [[4,9,5],[15,17,6],[24,0,17]]
       }
     },
     mounted() {
@@ -44,7 +62,7 @@
     },
     methods: {
       showMatrix() {
-        var tdArray = document.querySelectorAll('td')
+        var tdArray = document.querySelectorAll('.hillKeyMatrix td')
         let i = 0, j = 0
         for(var el of tdArray) {
           if(j === 3) {
@@ -54,6 +72,16 @@
           el.innerText = this.hillKeyMatrix[i][j++]
         }
         console.log(tdArray)
+
+        tdArray = document.querySelectorAll('.hillInverseMatrix td')
+        i = 0, j = 0
+        for(var el of tdArray) {
+          if(j === 3) {
+            i++
+            j = 0
+          }
+          el.innerText = this.hillInverseMatrix[i][j++]
+        }
       },
       createKeyMatrix() {
         let hillKeyMatrix = [];
@@ -82,10 +110,16 @@
     margin-top: 30px;
   }
   table {
-    float: right;
-    margin-right: 600px;
-    margin-top: -20px;
     color: white;
+    margin-top: 10px;
+  }
+  .hillKeyMatrix {
+    margin-left: 20px;
+  }
+  .hillInverseMatrix {
+    float: right;
+    margin-right: 800px;
+    margin-top: -68px;
   }
   td {
     text-align: center;

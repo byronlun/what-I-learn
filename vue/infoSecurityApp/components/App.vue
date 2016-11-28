@@ -85,7 +85,7 @@
   .view {
     background-color: #444;
     width: 980px;
-    height: 350px;
+    height: 450px;
     margin-top: 10px;
     padding: 10px;
   }
