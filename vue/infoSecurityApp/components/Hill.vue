@@ -2,8 +2,10 @@
   <div id="hill">
     <public v-bind:hill-key-matrix="hillKeyMatrix"></public>
     <div class="keyMatrix">
-      <label>点击按钮产生随机密钥矩阵</label>
+      <!-- <label>点击按钮产生随机密钥矩阵</label> -->
       <!-- <button v-on:click="createKeyMatrix">生成密钥</button><br> -->
+      <label>加密矩阵为:</label>
+      <label class="inverseLabel">解密矩阵为:</label>
       <table class="hillKeyMatrix">
         <tr>
           <td></td>
@@ -21,6 +23,7 @@
           <td></td>
         </tr>
       </table>
+      
       <table class="hillInverseMatrix">
         <tr>
           <td></td>
@@ -114,12 +117,15 @@
     margin-top: 10px;
   }
   .hillKeyMatrix {
-    margin-left: 20px;
+    margin-left: 10px;
   }
   .hillInverseMatrix {
     float: right;
-    margin-right: 800px;
+    margin-right: 780px;
     margin-top: -68px;
+  }
+  .inverseLabel {
+    margin-left: 50px;
   }
   td {
     text-align: center;
