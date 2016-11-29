@@ -25,6 +25,7 @@
       return {
         originText: '',
         cipher: '',
+        ijTag: [], //数组长度表示用户输入的ij的数量，0表示i，1表示j
         key: this.keyNum ? this.keyNum : this.keyWord
       }
     },
@@ -96,7 +97,8 @@
       },
       //Playfair生成密钥矩阵
       createKeyMatrix() {
-        const key = this.key
+        const key = this.key.replace(/j/ig, 'i')
+        console.log(key)
         const keyArray = key.toLocaleUpperCase().split('')
         var i = 0,
             j = 0,
@@ -104,11 +106,17 @@
             temp = {}
         // 将关键词的每个字母分别赋值到密钥矩阵中
         keyArray.forEach(function(value) {
+          if (temp[value]) {
+            return ;
+          }
           if(j === 5) {
             i++
             j = 0
           }
           keyMatrix[i][j] = value
+          // if (value == 'I' || value == 'J') {
+          //   keyMatrix[i][j] = 'I/J'
+          // }
           j++
           temp[value] = true
         })
@@ -131,6 +139,7 @@
       },
       //Playfair加密
       playfairEncryption() {
+        this.ijTag = []
         let keyMatrix = this.createKeyMatrix()
         //将输入原文过滤之后装进两两装进数组中，最后如果为单数则补'K'
         var inputText = this.originText.replace(/[^a-z]/ig, '').toLocaleUpperCase().split(''),
@@ -143,6 +152,15 @@
             inputArray[i]= []
           }
           let letter = inputText.shift()
+          if (letter == 'I' || letter == 'J') {
+            if (letter == 'I') {
+              this.ijTag.push(0)
+            }
+            if (letter == 'J') {
+              this.ijTag.push(1)
+              letter = 'I'
+            }
+          }
           inputArray[i].push(letter)
         }
         if (inputArray[i].length === 1) {
@@ -152,9 +170,25 @@
 
         let resultArray = [], resultText = [];
         //考虑各种情况的加密过程
-        var x1, x2, y1, y2
+        var x1, x2, y1, y2, ijTag
         for (var i = 0; i < inputArray.length; i++) {
           x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+          // if (inputArray[i][0] === 'I') {
+          //   ijTag = 'I'
+          //   inputArray[i][0] = 'I/J'
+          // }
+          // if (inputArray[i][0] === 'J') {
+          //   ijTag = 'J'
+          //   inputArray[i][0] = 'I/J'
+          // }
+          // if (inputArray[i][1] === 'I') {
+          //   ijTag = 'I'
+          //   inputArray[i][1] = 'I/J'
+          // }
+          // if (inputArray[i][1] === 'J') {
+          //   ijTag = 'J'
+          //   inputArray[i][1] = 'I/J'
+          // }
           for(let k = 0; k < 5; k++) {
             for(let t = 0; t < 5; t++) {
               if (inputArray[i][0] === keyMatrix[k][t]) {
@@ -240,6 +274,17 @@
         resultArray.forEach(function(array) {
           resultText.push(array[0], array[1])
         })
+        //检测到底是i还是j
+        if (this.ijTag.length) {
+          for (let i = 0; i < resultText.length; i++) {
+            if (resultText[i] == 'I') {
+              let temp = this.ijTag.shift()
+              if (temp == 1) {
+                resultText[i] = 'J'
+              }
+            }
+          }
+        }
         this.originText = resultText.join('')
         console.log(resultText)
       },
