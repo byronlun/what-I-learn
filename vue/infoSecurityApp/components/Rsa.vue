@@ -1,7 +1,7 @@
 <template>
   <div id="rsa">
     <div class="forMar">
-      <button v-on:click="getRandomPrime" class="btn">产生随机数</button>  
+      <button v-on:click="getRandomPrime" class="btn">产生随机素数</button>  
       <input type="text" readonly="readonly" placeholder="101" v-model="primeKey[0]">
       <input type="text" readonly="readonly" placeholder="103" v-model="primeKey[1]"><br>
 

@@ -12,7 +12,7 @@ import Rsa from  '../components/Rsa.vue'
 export default new VueRouter({
   mode: 'history',
   routes: [
-    {path: '/', component: Caesar, name: 'caesar'},
+    {path: '/', component: Home, name: 'Home'},
     {path: '/caesar', component: Caesar, name: 'caesar'},
     {path: '/playfair', component: Playfair, name: 'playfair'},
     {path: '/hill', component: Hill, name: 'hill'},

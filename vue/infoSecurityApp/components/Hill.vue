@@ -3,7 +3,7 @@
     <public v-bind:hill-key-matrix="hillKeyMatrix"></public>
     <div class="keyMatrix">
       <label>点击按钮产生随机密钥矩阵</label>
-      <button v-on:click="createKeyMatrix">生成密钥</button><br>
+      <!-- <button v-on:click="createKeyMatrix">生成密钥</button><br> -->
       <table class="hillKeyMatrix">
         <tr>
           <td></td>
@@ -53,7 +53,7 @@
     data(){
       return {
         hillKeyMatrix: [[17,17,5],[21,18,21],[2,2,19]],
-        hillInverseMatrix: [[4,9,5],[15,17,6],[24,0,17]]
+        hillInverseMatrix: [[4,9,15],[15,17,6],[24,0,17]]
       }
     },
     mounted() {

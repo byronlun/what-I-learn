@@ -26,6 +26,7 @@
         originText: '',
         cipher: '',
         ijTag: [], //数组长度表示用户输入的ij的数量，0表示i，1表示j
+        hillInverseMatrix: [[4,9,15],[15,17,6],[24,0,17]],
         key: this.keyNum ? this.keyNum : this.keyWord
       }
     },
@@ -35,7 +36,7 @@
     //   console.log(this.hillKeyMatrix)
     // },
     watch: {
-      keyInput: function(val) {
+      keyNum: function(val) {
         this.key = val
       },
       keyWord: function(val) {
@@ -57,7 +58,6 @@
           console.log(this.hillKeyMatrix)
           this.hillEncryption()
         }
-        
       },
 
       decryption() {
@@ -72,6 +72,7 @@
       //Caesar加密
       caesarEncryption() {
         let key = this.key
+        console.log(key)
         let word = this.originText
         let result = word.replace(/[^a-z]/ig, '').toLocaleUpperCase().split('').map(function(char) {
           var temp = char.charCodeAt() + parseInt(key)
@@ -93,7 +94,7 @@
           }
           return String.fromCodePoint(temp)
         })
-        this.originText = result.join('')
+        this.originText = result.join('').toLocaleUpperCase()
       },
       //Playfair生成密钥矩阵
       createKeyMatrix() {
@@ -353,9 +354,9 @@
           for(let j = 0; j < singleArray.length; j++) {
             singleArray[j] = singleArray[j].charCodeAt() - 65
           }
-          let invMatrix = math.inv(this.hillKeyMatrix)
-          console.log(invMatrix)
-          let resultSingleArray = this.singleHillEncryption(singleArray, invMatrix)
+          // this.hillInverseMatrix = math.inv(this.hillKeyMatrix)
+          console.log(this.hillInverseMatrix)
+          let resultSingleArray = this.singleHillEncryption(singleArray, this.hillInverseMatrix)
           for(let j = 0; j < resultSingleArray.length; j++) {
             resultSingleArray[j] = String.fromCodePoint(Math.round(resultSingleArray[j] + 65))
           }
@@ -410,6 +411,7 @@
   .leftText textarea, .rightText textarea {
     width: 400px;
     font-size: 1.2em;
+    letter-spacing: 4px;
   }
   h3 {
     text-align: center;
