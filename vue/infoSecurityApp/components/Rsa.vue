@@ -102,7 +102,7 @@
         console.log(this.encryptKey)
       },
       //求模反元素
-      getTMnum(e, sum) {
+      getTMnum(e, sum) {//e就是书本上的加密密钥e,sum其实应该是乘积，就是课本那个乘积
         let result = 1
         while(!(result%e == 0 && (result-1)%sum == 0)) {
           result += sum
@@ -111,7 +111,7 @@
         return result/e
       },
       //加密和解密
-      EnAndDecryption(text, KeyArray) {
+      EnAndDecryption(text, KeyArray) {//text加密信息或者解密信息，keyArray是公钥或者私钥
         let result = 1
         let keyOne = KeyArray[0]
         let keyTwo = KeyArray[1]
