@@ -107,20 +107,30 @@ var c = new Crawler({
             console.error(error);
         }else{
             var $ = res.$;
-            console.log($('title').text());
+            console.log($('.repo-list').length);
+            var liArray = [];
+            $('.repo-list .col-9 a').each(function (index, element) {
+              var $element = $(element)
+              var href = url.resolve('https://github.com', $element.attr('href'))
+              console.log(href)
+              var $title = $(element).contents().filter(function() {
+                return this.nodeType === 3; //Node.TEXT_NODE
+              }); 
+              // console.log($title)
+            })
         }
         done();
     }
 });
 
 c.queue({
-    uri:"http://www.baidu.com"
+    uri:"https://github.com/trending/javascript?since=weekly"
 });
 
-c.queue({
-    uri:"http://www.baidu.com"
-});
+// c.queue({
+//     uri:"http://www.baidu.com"
+// });
 
-c.queue({
-    uri:"http://www.baidu.com"
-});
+// c.queue({
+//     uri:"http://www.baidu.com"
+// });
