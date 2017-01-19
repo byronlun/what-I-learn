@@ -109,7 +109,8 @@ var c = new Crawler({
             var $ = res.$;
             console.log($('.repo-list').length);
             var liArray = [];
-            $('.repo-list .col-9 a').each(function (index, element) {
+            console.log($('.repo-list .mb-1 a').length)
+            $('.repo-list .mb-1 a').each(function (index, element) {
               var $element = $(element)
               var href = url.resolve('https://github.com', $element.attr('href'))
               console.log(href)
@@ -118,6 +119,7 @@ var c = new Crawler({
               }); 
               // console.log($title)
             })
+            console.log($('#pa-freeCodeCamp .col-9 a').attr('href'))
         }
         done();
     }
