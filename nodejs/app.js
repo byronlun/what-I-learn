@@ -4,24 +4,41 @@ var eventproxy = require('eventproxy')
 var ep = new eventproxy()
 
 var url = require('url')
-var cnodeUrl = 'http://cnodejs.org/'
+var targetUrl = 'https://github.com/trending/javascript?since=weekly'
+var githubURL = 'https://github.com'
 
-// superagent.get(cnodeUrl)
-// .end(function (err, res) {
-//   if(err) {
-//     return console.error(err)
-//   }
-//   var topicUrls = [];
-//   var $ = cheerio.load(res.text)
+superagent.get(targetUrl)
+.end(function (err, res) {
+  if(err) {
+    return console.error(err)
+  }
 
-//   $('#topic_list .topic_title').each(function (index, element) {
-//     var $element = $(element)
+  var $ = cheerio.load(res.text)
+  var liArray = []
+  var titleArray = []
+  console.log($('.repo-list .mb-1 a').length)
+  $('.repo-list .mb-1 a').each(function (index, element) {
+    var $element = $(element)
+    var href = url.resolve('https://github.com', $element.attr('href'))
+    liArray.push(href)
+    var $title = $element.contents().last()[0].data
+    $title = $title.substr(0, $title.length - 1)
+    titleArray.push($title)
+  })
+  console.log(liArray)
+  console.log(titleArray)
 
-//     var href = url.resolve(cnodeUrl, $element.attr('href'))
-//     topicUrls.push(href)
-//   })
+  // var topicUrls = [];
+  // var $ = cheerio.load(res.text)
 
-//   console.log(topicUrls)
+  // $('#topic_list .topic_title').each(function (index, element) {
+  //   var $element = $(element)
+
+  //   var href = url.resolve(cnodeUrl, $element.attr('href'))
+  //   topicUrls.push(href)
+  // })
+
+  // console.log(topicUrls)
 
 //   ep.after('accessTopic', topicUrls.length, function(topics) {
 //     var oneTopic = topics.map(function (topic) {
@@ -44,7 +61,7 @@ var cnodeUrl = 'http://cnodejs.org/'
 //         ep.emit('accessTopic', [topicUrl, res.text]);
 //       });
 //   });
-// })
+})
 
 
 
@@ -97,37 +114,37 @@ var cnodeUrl = 'http://cnodejs.org/'
 
 // c.queue(cnodeUrl)
 
-var Crawler = require("crawler");
+// var Crawler = require("crawler");
 
-var c = new Crawler({
-    maxConnections: 2,
-    rateLimit:2000,
-    callback : function (error, res, done) {
-        if(error){
-            console.error(error);
-        }else{
-            var $ = res.$;
-            console.log($('.repo-list').length);
-            var liArray = [];
-            console.log($('.repo-list .mb-1 a').length)
-            $('.repo-list .mb-1 a').each(function (index, element) {
-              var $element = $(element)
-              var href = url.resolve('https://github.com', $element.attr('href'))
-              console.log(href)
-              var $title = $(element).contents().filter(function() {
-                return this.nodeType === 3; //Node.TEXT_NODE
-              }); 
-              // console.log($title)
-            })
-            console.log($('#pa-freeCodeCamp .col-9 a').attr('href'))
-        }
-        done();
-    }
-});
+// var c = new Crawler({
+//     maxConnections: 2,
+//     rateLimit:2000,
+//     callback : function (error, res, done) {
+//         if(error){
+//             console.error(error);
+//         }else{
+//             var $ = res.$;
+//             console.log($('.repo-list').length);
+//             var liArray = [];
+//             console.log($('.repo-list .mb-1 a').length)
+//             $('.repo-list .mb-1 a').each(function (index, element) {
+//               var $element = $(element)
+//               var href = url.resolve('https://github.com', $element.attr('href'))
+//               console.log(href)
+//               var $title = $(element).contents().filter(function() {
+//                 return this.nodeType === 3; //Node.TEXT_NODE
+//               }); 
+//               // console.log($title)
+//             })
+//             console.log($('#pa-freeCodeCamp .col-9 a').attr('href'))
+//         }
+//         done();
+//     }
+// });
 
-c.queue({
-    uri:"https://github.com/trending/javascript?since=weekly"
-});
+// c.queue({
+//     uri:"https://github.com/trending/javascript?since=weekly"
+// });
 
 // c.queue({
 //     uri:"http://www.baidu.com"
