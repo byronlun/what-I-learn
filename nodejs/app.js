@@ -32,7 +32,7 @@ superagent.get(targetUrl)
     $title = $title.substr(0, $title.length - 1)
     titleArray.push($title)
   })
-  repoUrls = repoUrls.slice(0, 2)
+  // repoUrls = repoUrls.slice(0, 2)
 
   // ep.after('accessRepo', repoUrls.length, function(repos) {
   //   var oneRepo = repos.map(function (repo) {

@@ -13,7 +13,6 @@ var c = new Crawler({
       console.error(error);
     }else{
       var $ = res.$
-      console.log(this)
 
       // 仓库页面的逻辑处理
       var httpGitUrl = $('.https-clone-options .js-url-field').attr('value')
@@ -51,7 +50,7 @@ c.queue({
         titleArray.push($title)
       })
     }
-    
+
     // 直接抓取每个仓库页面
     c.queue(repoUrls)
     done();
