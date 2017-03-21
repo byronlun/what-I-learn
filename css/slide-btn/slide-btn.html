@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .toggle {
+            font-size: 0;
+            display: inline-block;
+            background: #999;
+            border-radius: 20px;
+            position: relative;
+        }
+        .toggle-tab {
+            display: inline-block;
+            font-size: 16px;
+            width: 80px;
+            height: 40px;
+            margin: 0;
+            border-style: none;
+            outline: none;
+            cursor: pointer;
+            border-radius: 20px;
+            background: none;
+            position: relative;
+        }
+        .left {
+            border-right: 0;
+            z-index: 2;
+        }
+        .right {
+            border-left: 0;
+            z-index: 2;
+        }
+        .slide {
+            background: green;
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: .3s;
+        }
+
+    </style>
+</head>
+<body>
+    <h3>slide tab</h3>
+    <div class="toggle">
+        <button class="toggle-tab left">项目</button>
+        <button class="toggle-tab right">成员</button>
+        <button class="toggle-tab right">测试</button>
+        <button class="toggle-tab slide"></button>
+    </div>
+    <script>
+        const toggle = document.querySelector('.toggle')
+        const slide = document.querySelector('.slide')
+        const tabWidth = slide.offsetWidth
+        toggle.addEventListener('click', handleClick, false)
+        function handleClick(e) {
+            for(let i = 0; i < toggle.children.length-1; i++) {
+                if(e.target == toggle.children[i]) {
+                    let slideWidth = `${i*tabWidth}px`
+                    slide.style.left = `${slideWidth}`
+                    break
+                }
+            }
+        }
+    </script>
+</body>
+</html>
