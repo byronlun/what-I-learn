@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .inline {
+            display: inline;
+        }
+        .strong {
+            font-weight: bold;
+        }
+        .red {
+            color: red;
+        }
+        .circle {
+            display: inline-block;
+            width: 21px;
+            color: white;
+            border-radius: 50%;
+        }
+        .grade-s {
+            background-color: #fd9d9a;
+        }
+        .grade-a {
+            background-color: #febb41;
+        }
+        .grade-b {
+            background-color: #8cca32;
+        }
+        .grade-c {
+            background-color: #48c9da;
+        }
+        .triangle {
+            width:0;
+            height:0;
+            border-width: 10px 10px 10px 0;
+            border-style: solid;
+            border-color: transparent rebeccapurple transparent transparent;/*透明 灰 透明 透明 */
+            position: relative;
+            top: 50px;
+            left: -10px;
+        }
+         .triangle span{
+            width:0;
+            height:0;
+            border-width: 9px 9px 9px 0;
+            border-style: solid;
+            border-color: transparent white transparent transparent;/*透明 灰 透明 透明 */
+            position: absolute;
+            top: -9px;
+            left: 2px;
+        }
+        table {
+            border-collapse: collapse;
+            box-sizing: border-box;
+            border: 1px solid rebeccapurple;
+        }
+        tr {
+            height: 60px;
+        }
+        tr:nth-child(even) {
+            background-color: #fbfbfc;
+        }
+        tr:not(:last-child) {
+            border-bottom: 1px solid black; 
+        }
+        td {
+            text-align: center;
+            padding: 15px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="triangle"><span></span></div>
+    <table>
+        <tr>
+            <td>
+                <div>日报总量</div>
+                <div><span class="strong">24</span></div>
+            </td>
+            <td colspan="3">
+                <div class="inline"><div class="circle grade-s">S</div><span class="strong">10</span>个</div>
+                <div class="inline"><div class="circle grade-a">A</div><span class="strong">10</span>个</div>
+                <div class="inline"><div class="circle grade-b">B</div><span class="strong">10</span>个</div>
+                <div class="inline"><div class="circle grade-c">C</div><span class="strong">10</span>个</div>
+            </td>
+        </tr>
+        <tr>
+            <td>满意度</td>
+            <td>上月<span class="strong"> 14</span></td>
+            <td>本月<span class="strong"> 24</span></td>
+            <td class="red">↑50%</td>
+        </tr>
+        <tr>
+            <td>
+                <div>本月请假</div>
+                <div><span class="strong">10</span>天</div>
+            </td>
+            <td>
+                <div>休息日加班</div>
+                <div><span class="strong">1</span>天</div>
+            </td>
+            <td>
+                <div>迟到早退</div>
+                <div><span class="strong">0</span>次</div>
+            </td>
+            <td>
+                <div>平均在岗</div>
+                <div><span class="strong">10</span>时</div>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
