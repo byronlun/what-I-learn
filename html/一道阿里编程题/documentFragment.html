@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--code here-->
+  <!--题目要求可以在手机查看-->
+  <!--很明显这里要设置viewport，移动端显示-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+  <title>demo</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    
+    .head, li div {
+      display: inline-block;
+      width: 70px;
+      text-align: center;
+    }
+
+    li .id, li .sex, .id, .sex {
+      width: 15px;
+    }
+
+    li .name, .name {
+      width: 40px;
+    }
+
+    li .tel, .tel {
+      width: 90px;
+    }
+
+    li .del, .del {
+      width: 15px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .user-delete {
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="J_container">
+    <div class="record-head">
+      <div class="head id">序号</div><div class="head name">姓名</div><div class="head sex">性别</div><div class="head tel">电话号码</div><div class="head province">省份</div><div class="head">操作</div>
+    </div>
+    <ul id="J_List">
+      <li><div class="id">1</div><div class="name">张三</div><div class="sex">男</div><div class="tel">13788888888</div><div class="province">浙江</div><div class="user-delete">删除</div></li>
+      <li><div class="id">2</div><div class="name">李四</div><div class="sex">女</div><div class="tel">13788887777</div><div class="province">四川</div><div class="user-delete">删除</div></li>
+      <li><div class="id">3</div><div class="name">王二</div><div class="sex">男</div><div class="tel">13788889999</div><div class="province">广东</div><div class="user-delete">删除</div></li>
+    </ul>
+  </div>
+
+<script>
+// 此处也可换成ES6的写法
+function Contact(){
+    this.init();
+}
+// 题目要求点击删除的时候，可以删除掉商品的信息
+// your code here 
+// 根据已经提供的代码，我想到的这里考察的自执行，然后事件委托，documentFragment（正式因为很多人认识不深，所以很容易就掉坑，我也掉了）
+Contact.init = (() => {
+    const ul = document.querySelector('#J_List')
+    const liArr = ul.children
+    ul.addEventListener('click', (e) => {
+        console.log(e.target.parentNode)
+        let idIndex = 1
+        let frag = document.createDocumentFragment()
+        for( let i = 0, length = liArr.length; i < length; i++) {
+            // console.log(liArr[i])
+            if(e.target.parentNode === liArr[i]) {
+                frag.appendChild(liArr[i])
+            }
+        }
+        console.log(ul.children)
+        Array.prototype.map.call(ul.children, item => item.firstChild.innerText = idIndex++)
+    }, false)
+})()
+</script>
+</body>
+</html>
