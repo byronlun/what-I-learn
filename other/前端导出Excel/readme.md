@@ -11,12 +11,22 @@
 - [在 Node.js 中利用 js-xlsx 处理 Excel 文件](http://scarletsky.github.io/2016/01/30/nodejs-process-excel/)
 - [读写Excel文件探究实践](https://aotu.io/notes/2016/04/07/node-excel/)
 
-## 使用DEMO
+## DEMO
 
 前端导出Excel有两种方式，一种是借助 `NodeJS` 来 install `js-xlsx`，然后导出文件；另一种是直接用 `script` 标签引入 `js-xlsx` 源文件，然后导出。
 针对这两种情况写了两个demo，一看即懂，直接上手~哈哈~
 
-- [NodeJS 引入]()
-- [页面引入]()
+- [NodeJS 引入](https://github.com/byronlun/what-I-learn/blob/master/other/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel/nodejs%E5%BC%95%E5%85%A5/demo.js)
+- [页面引入](https://github.com/byronlun/what-I-learn/blob/master/other/%E5%89%8D%E7%AB%AF%E5%AF%BC%E5%87%BAExcel/script%E5%BC%95%E5%85%A5/demo.html)
 
+NodeJS直接:
 
+```
+npm install
+```
+
+然后运行下面命令即可导出Excel
+
+```
+node demo.js
+```
