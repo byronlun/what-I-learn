@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .drag {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            border: 1px solid black;
+        }
+        .content {
+            background: green;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="drag">
+        <div class="content">dragable</div>
+    </div>
+    <script>
+        (() => {
+            const dom = document.querySelector('.drag')
+            let domLeft = 0, domTop = 0, isdragable = false
+
+            function up(e) {
+                console.log('up')
+                isdragable = false
+            }
+
+            function down(e) {
+                console.log('down')
+                domParent = e.target.offsetParent
+                domLeft = e.clientX - domParent.offsetLeft
+                domTop = e.clientY - domParent.offsetTop
+                isdragable = true
+            }
+
+            function move(e) {
+                console.log('move', isdragable)
+                if(isdragable) {
+                    dom.style.left = e.clientX - domLeft + 'px'
+                    dom.style.top = e.clientY - domTop + 'px'
+                }
+                
+            }
+            
+            dom.addEventListener('mousedown', down, false)
+            dom.addEventListener('mouseup', up, false)
+            dom.addEventListener('mousemove', move, false)
+        })()
+        
+    </script>
+</body>
+</html>
