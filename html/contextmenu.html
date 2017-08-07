@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .menu {
+            display: none; 
+            width: 160px;
+            list-style: none;
+            box-shadow: 1px 1px 3px 1px #ccc;
+            position: absolute;
+        }
+        .menu li {
+            border: 1px solid #ccc;
+            height: 25px;
+            line-height: 25px;
+            font-size: 12px;
+            margin-bottom: -1px;
+            padding: 0 5px;
+            cursor: default;
+        }
+        .menu li:hover {
+            background: #dadada;
+        }
+    </style>
+</head>
+<body>
+    <h3>鼠标右键菜单</h3>
+    <ul class="menu">
+        <li>重新加载</li>
+        <li>翻译网页</li>
+        <li>查看源代码</li>
+        <li>检查</li>
+    </ul>
+    <script>
+        const menu = document.querySelector('.menu')
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault()
+            menu.style.display = 'block'
+            menu.style.left = e.clientX + 'px'
+            menu.style.top = e.clientY + 'px'
+        }, false)
+        document.addEventListener('click', () => {
+            menu.style.display = 'none'
+        }, false)
+    </script>
+</body>
+</html>
