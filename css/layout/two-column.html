@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两栏布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            text-align: center;
+        }
+        #left {
+            background-color: green;
+            height: 300px;
+            width: 200px;
+            float: left;  
+        }
+        #right {
+            background-color: blue;
+            height: 300px;
+            /*第一种：直接右边宽度 100%  */
+            /* width: 100%;  */
+            overflow: hidden;
+            /*第二种：使用 margin-left  */
+            /* margin-left: 200px;  */
+            /*第三种：使用 calc  */
+            /* float: left;
+            width: calc(100vw - 200px);   */
+            /*第四种：外层元素 flex 布局，右边元素flex 1  */
+            /* flex: 1; */
+        }
+
+        .negative-margin {
+            margin-top: 10px;
+            position: absolute;
+            width: 100%;
+        }
+        /*第五种：使用负 margin  */
+        /* .left {
+            float: left;
+            width: 200px;
+            background-color: green;
+        }
+        .right-wrap {
+            float: right;
+            width: 100%;
+            margin-left: -200px;
+        }
+        .right {
+            margin-left: 200px; 
+            background-color: blue;
+        } */
+
+        .left {
+            float: left;
+            width: 200px;
+            background-color: green;
+            margin-right: -100%;
+        }
+        .right-wrap {
+            float: left;
+            width: 100%;
+        }
+        .right {
+            margin-left: 200px; 
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <!-- <h2>两栏布局，左边定宽，左边自适应</h2> -->
+    <div id="left">left content</div>
+    <div id="right">right content</div>
+
+    <div class="negative-margin">
+        <div class="left">left</div>
+        <div class="right-wrap">
+            <div class="right">right</div>
+        </div>
+    </div>
+</body>
+</html>
