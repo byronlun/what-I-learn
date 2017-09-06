@@ -1,0 +1,35 @@
+{
+  "name": "hellokoa",
+  "version": "1.0.0",
+  "description": "hello koa demo",
+  "main": "app.js",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "koa": "^2.3.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "koa"
+  ],
+  "babel": {
+    "presets": [
+      [
+        "env", 
+        {
+          "targets": {
+            "node": "current"
+          }
+        }
+      ]
+    ]
+  },
+  "author": "byronlun",
+  "license": "ISC"
+}
